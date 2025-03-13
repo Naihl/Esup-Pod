@@ -1319,6 +1319,7 @@ def video_edit(request, slug=None):
         )
         if form.is_valid():
             video = save_video_form(request, form)
+            video.save()
             messages.add_message(
                 request, messages.INFO, _("The changes have been saved.")
             )
@@ -1369,6 +1370,9 @@ def save_video_form(request, form):
 
     elif getattr(video, "owner", None) is None:
         video.owner = request.user
+        
+    if video.publish_date and video.publish_date > timezone.now():
+        video.is_draft = True
     video.save()
     form.save_m2m()
     video.sites.add(get_current_site(request))

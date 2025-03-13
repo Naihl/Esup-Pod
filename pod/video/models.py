@@ -871,6 +871,14 @@ class Video(models.Model):
         default=default_date_delete,
         help_text=_("Date when your video will be automatically removed from Pod."),
     )
+    
+    publish_date = models.DateTimeField(
+        _("Schedules date"),
+        null=True,
+        blank=True,
+        default=None,
+        help_text=_("Date when your video will be published."),
+    )
 
     disable_comment = models.BooleanField(
         _("Disable comment"),

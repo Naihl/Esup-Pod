@@ -654,6 +654,7 @@ class VideoForm(forms.ModelForm):
                     "licence",
                     "thumbnail",
                     "date_delete",
+                    "publish_date",
                 ],
             },
         ),
@@ -1076,6 +1077,7 @@ class VideoForm(forms.ModelForm):
             "restrict_access_to_groups": AddAccessGroupWidget,
             "video": CustomClearableFileInput,
             "password": forms.TextInput(),
+            'publish_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
         }
         initial = {
             "date_added": datetime.date.today(),

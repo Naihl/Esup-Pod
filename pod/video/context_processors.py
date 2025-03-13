@@ -1,6 +1,7 @@
 """Esup-Pod vido context processor."""
 
 from django.conf import settings as django_settings
+from django.utils import timezone
 
 from pod.video.models import Type
 from pod.video.models import Discipline
@@ -38,6 +39,7 @@ CHANNELS_PER_BATCH = getattr(django_settings, "CHANNELS_PER_BATCH", 10)
 def get_available_videos_filter(request=None):
     """Return the base filter to get the available videos of the site."""
     __AVAILABLE_VIDEO_FILTER__["sites"] = get_current_site(request)
+    __AVAILABLE_VIDEO_FILTER__["publish_date__lte"] = timezone.now()
 
     return (
         Video.objects.filter(**__AVAILABLE_VIDEO_FILTER__)
